@@ -12,6 +12,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
 
+      - name: Install Packages
+        run: yarn install
+
       - name: Test
         run: yarn test
 
@@ -24,6 +27,12 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v1
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Compile Packages
+        run: yarn compile
 
       - name: Semantic Release
         uses: brpaz/action-semantic-release@v1
