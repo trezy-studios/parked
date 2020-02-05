@@ -1,5 +1,5 @@
 {
-  "name": "parked",
+  "name": "@parked/core",
   "version": "0.0.0",
   "description": "A parser of Markdown",
   "main": "dist/index.js",
