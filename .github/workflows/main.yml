@@ -1,0 +1,29 @@
+name: semantic-release
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+
+      - name: Test
+        run: yarn test
+
+  semantic-release:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+
+      - name: Semantic Release
+        uses: brpaz/action-semantic-release@v1
