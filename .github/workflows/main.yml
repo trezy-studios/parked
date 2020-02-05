@@ -3,7 +3,7 @@ name: semantic-release
 on: [push]
 
 jobs:
-  test:
+  install-packages:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -11,6 +11,80 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v1
+
+      - name: Locate Yarn Cache Directory
+        id: locate-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Retrieve Yarn Cache
+        id: retrieve-yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.locate-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Packages
+        run: yarn install
+
+  compile:
+    needs: install-packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+
+      - name: Locate Yarn Cache Directory
+        id: locate-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Retrieve Yarn Cache
+        id: retrieve-yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.locate-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Packages
+        run: yarn install
+
+      - name: Compile
+        run: yarn compile
+
+      - name: Upload Compiled Files
+        uses: actions/upload-artifact@v1
+        with:
+          name: compiled-files
+          path: dist/
+
+  test:
+    needs: install-packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+
+      - name: Locate Yarn Cache Directory
+        id: locate-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Retrieve Yarn Cache
+        id: retrieve-yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.locate-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install Packages
         run: yarn install
@@ -19,7 +93,7 @@ jobs:
         run: yarn test
 
   semantic-release:
-    needs: test
+    needs: [compile, test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,11 +102,26 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
 
+      - name: Locate Yarn Cache Directory
+        id: locate-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Retrieve Yarn Cache
+        id: retrieve-yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.locate-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       - name: Install Packages
         run: yarn install
 
-      - name: Compile Packages
-        run: yarn compile
+      - name: Download compiled files
+        uses: actions/download-artifact@v1
+        with:
+          name: compiled-files
 
       - name: Semantic Release
         uses: brpaz/action-semantic-release@v1
