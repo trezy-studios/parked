@@ -1,0 +1,8 @@
+{
+  "name": "parked",
+  "version": "0.0.0",
+  "description": "A parser of Markdown",
+  "main": "index.js",
+  "author": "Trezy <t@trezy.com> (https://trezy.com)",
+  "license": "BSD-3-Clause"
+}
