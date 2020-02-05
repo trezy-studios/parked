@@ -1,5 +1,5 @@
 const markdownToHTML = string => {
-  return string
+  return string.replace(/\*\*(.+?)\*\*/gu, '<strong>$1</strong>')
 }
 
 
