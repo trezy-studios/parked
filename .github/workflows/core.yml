@@ -92,22 +92,22 @@ jobs:
       - name: Test
         run: cd core && yarn test
 
-  semantic-release:
-    needs: [compile, test]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # semantic-release:
+  #   needs: [compile, test]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Download compiled files
-        uses: actions/download-artifact@v1
-        with:
-          name: compiled-files-core
+  #     - name: Download compiled files
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: compiled-files-core
 
-      - run: cd core
+  #     - run: cd core
 
-      - name: Semantic Release
-        uses: brpaz/action-semantic-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #     - name: Semantic Release
+  #       uses: brpaz/action-semantic-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
