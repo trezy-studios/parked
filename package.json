@@ -1,10 +1,40 @@
 {
   "name": "parked",
   "version": "0.0.0",
-  "main": "index.js",
   "private": true,
   "license": "BSD-3-Clause",
   "workspaces": [
-    "core"
-  ]
+    "packages/core"
+  ],
+  "scripts": {
+    "compile": "rollup -c",
+    "pretest": "yarn run compile",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/plugin-proposal-private-methods": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
+    "@fuelrats/eslint-config": "^1.2.2",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.1",
+    "mocha": "^7.0.1",
+    "rollup": "^1.31.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-notify": "^1.1.0",
+    "rollup-plugin-progress": "^1.1.1",
+    "rollup-plugin-size-snapshot": "^0.11.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-visualizer": "^3.3.1",
+    "sinon": "^8.1.1"
+  }
 }
