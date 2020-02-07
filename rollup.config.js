@@ -79,4 +79,31 @@ export default [
     ],
     plugins,
   },
+
+
+
+
+
+  /***************************************************************************\
+    parked
+  \***************************************************************************/
+  {
+    input: 'packages/parked/src/index.js',
+    output: [
+      {
+        file: 'packages/parked/dist/index.js',
+        format: 'umd',
+        name: 'parked',
+      },
+      {
+        file: 'packages/parked/dist/index.min.js',
+        format: 'umd',
+        name: 'parked',
+        plugins: [
+          terser(),
+        ],
+      },
+    ],
+    plugins,
+  },
 ]
