@@ -1,0 +1,6 @@
+{
+  "name": "@parked/parser-markdown-to-html",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "license": "BSD-3-Clause"
+}

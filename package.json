@@ -4,7 +4,8 @@
   "private": true,
   "license": "BSD-3-Clause",
   "workspaces": [
-    "packages/core"
+    "packages/core",
+    "packages/parser-packs/markdown"
   ],
   "scripts": {
     "compile": "rollup -c",
