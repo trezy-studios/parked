@@ -11,7 +11,10 @@
   "scripts": {
     "compile": "rollup -c",
     "pretest": "yarn run compile",
-    "test": "mocha"
+    "test:core": "mocha packages/core/**/*.test.js",
+    "test:markdown-to-html": "mocha packages/parser-packs/markdown-to-html/**/*.test.js",
+    "test:parked": "mocha packages/parked/**/*.test.js",
+    "test": "mocha packages/**/*.test.js"
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
