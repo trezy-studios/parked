@@ -1,6 +1,12 @@
 {
   "name": "@parked/parser-markdown-to-html",
   "version": "0.0.0",
+  "description": "Markdown parser pack for Parked",
   "main": "dist/index.js",
-  "license": "BSD-3-Clause"
+  "author": "Trezy <t@trezy.com> (https://trezy.com)",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trezy-studios/parked.git"
+  }
 }
