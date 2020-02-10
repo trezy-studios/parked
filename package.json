@@ -9,7 +9,10 @@
     "packages/parser-packs/markdown"
   ],
   "scripts": {
-    "compile": "rollup -c",
+    "compile:core": "rollup -c compile-config/rollup.config.core.js",
+    "compile:markdown-to-html": "rollup -c compile-config/rollup.config.parser-pack.markdown-to-html.js",
+    "compile:parked": "rollup -c compile-config/rollup.config.parked.js",
+    "compile": "yarn compile:core && yarn compile:markdown-to-html && yarn compile:parked",
     "pretest": "yarn run compile",
     "test:core": "mocha packages/core/**/*.test.js",
     "test:markdown-to-html": "mocha packages/parser-packs/markdown-to-html/**/*.test.js",
