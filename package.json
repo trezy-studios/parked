@@ -12,15 +12,12 @@
     "compile:core": "rollup -c compile-config/rollup.config.core.js",
     "pretest:core": "yarn run compile:core",
     "test:core": "mocha packages/core/**/*.test.js",
-
     "compile:markdown-to-html": "rollup -c compile-config/rollup.config.parser-pack.markdown-to-html.js",
     "pretest:markdown-to-html": "yarn run compile:markdown-to-html",
     "test:markdown-to-html": "mocha packages/parser-packs/markdown-to-html/**/*.test.js",
-
     "compile:parked": "rollup -c compile-config/rollup.config.parked.js",
     "pretest:parked": "yarn run compile:parked",
     "test:parked": "mocha packages/parked/**/*.test.js",
-
     "compile": "yarn compile:core && yarn compile:markdown-to-html && yarn compile:parked",
     "pretest": "yarn run compile",
     "test": "mocha packages/**/*.test.js"
@@ -40,12 +37,14 @@
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.20.1",
     "mocha": "^7.0.1",
+    "moment": "^2.24.0",
     "rollup": "^1.31.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-notify": "^1.1.0",
     "rollup-plugin-progress": "^1.1.1",
+    "rollup-plugin-re": "^1.0.7",
     "rollup-plugin-size-snapshot": "^0.11.0",
     "rollup-plugin-terser": "^5.2.0",
     "rollup-plugin-visualizer": "^3.3.1",

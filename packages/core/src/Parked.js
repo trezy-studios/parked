@@ -5,6 +5,9 @@ class Parked {
 
   static #requiredConfigFields = ['parser']
 
+  // The version is injected by the build process
+  static version = 'Parked [BUILD_VERSION] - Built on [BUILD_DATE]'
+
 
 
 
@@ -68,6 +71,11 @@ class Parked {
     }
 
     return this.#parser
+  }
+
+  /* eslint-disable-next-line class-methods-use-this */
+  get version () {
+    return Parked.version
   }
 }
 

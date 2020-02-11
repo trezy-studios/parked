@@ -1,12 +1,15 @@
 // Module imports
+import { eslint } from 'rollup-plugin-eslint'
+import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
 import { terser } from 'rollup-plugin-terser'
-
-
-
-
-
-// Local constants
-import plugins from './default-plugins'
+import babel from 'rollup-plugin-babel'
+import moment from 'moment'
+import notify from 'rollup-plugin-notify'
+import path from 'path'
+import progress from 'rollup-plugin-progress'
+import replace from 'rollup-plugin-re'
+import resolve from 'rollup-plugin-node-resolve'
+import visualizer from 'rollup-plugin-visualizer'
 
 
 
@@ -15,26 +18,59 @@ import plugins from './default-plugins'
 export default options => {
   const {
     name,
-    path,
+    path: packagePath,
   } = options
+  const {
+    version,
+  } = require(path.resolve(packagePath, 'package.json'))
 
   return {
-    input: `${path}/src/index.js`,
+    input: `${packagePath}/src/index.js`,
     output: [
       {
-        file: `${path}/dist/index.js`,
+        file: `${packagePath}/dist/index.js`,
         format: 'umd',
-        name: name,
+        name,
       },
       {
-        file: `${path}/dist/index.min.js`,
+        file: `${packagePath}/dist/index.min.js`,
         format: 'umd',
-        name: name,
+        name,
         plugins: [
           terser(),
         ],
       },
     ],
-    plugins,
+    plugins: [
+      progress(),
+      resolve(),
+      eslint(),
+      replace({
+        patterns: [
+          {
+            match: /.*/,
+            test: '[BUILD_VERSION]',
+            replace: () => {
+              if (version === '0.0.0') {
+                return 'Development Build'
+              }
+
+              return `v${version}`
+            },
+          },
+          {
+            match: /.*/,
+            test: '[BUILD_DATE]',
+            replace: moment().utc().format('DD MMMM, Y HH:mm:ssZZ'),
+          },
+        ],
+      }),
+      babel({
+        exclude: 'node_modules/**',
+      }),
+      sizeSnapshot(),
+      visualizer(),
+      notify(),
+    ],
   }
 }
