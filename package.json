@@ -10,13 +10,19 @@
   ],
   "scripts": {
     "compile:core": "rollup -c compile-config/rollup.config.core.js",
+    "pretest:core": "yarn run compile:core",
+    "test:core": "mocha packages/core/**/*.test.js",
+
     "compile:markdown-to-html": "rollup -c compile-config/rollup.config.parser-pack.markdown-to-html.js",
+    "pretest:markdown-to-html": "yarn run compile:markdown-to-html",
+    "test:markdown-to-html": "mocha packages/parser-packs/markdown-to-html/**/*.test.js",
+
     "compile:parked": "rollup -c compile-config/rollup.config.parked.js",
+    "pretest:parked": "yarn run compile:parked",
+    "test:parked": "mocha packages/parked/**/*.test.js",
+
     "compile": "yarn compile:core && yarn compile:markdown-to-html && yarn compile:parked",
     "pretest": "yarn run compile",
-    "test:core": "mocha packages/core/**/*.test.js",
-    "test:markdown-to-html": "mocha packages/parser-packs/markdown-to-html/**/*.test.js",
-    "test:parked": "mocha packages/parked/**/*.test.js",
     "test": "mocha packages/**/*.test.js"
   },
   "dependencies": {
